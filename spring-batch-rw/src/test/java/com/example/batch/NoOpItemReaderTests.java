@@ -1,12 +1,12 @@
 package com.example.batch; 
 
-import com.example.batch.ExampleItemReader;
+import com.example.batch.NoOpItemReader;
 
 import junit.framework.TestCase;
 
-public class ExampleItemReaderTests extends TestCase {
+public class NoOpItemReaderTests extends TestCase {
 
-	private ExampleItemReader reader = new ExampleItemReader();
+	private NoOpItemReader reader = new NoOpItemReader();
 	
 	public void testReadOnce() throws Exception {
 		assertEquals("Hello world!", reader.read());

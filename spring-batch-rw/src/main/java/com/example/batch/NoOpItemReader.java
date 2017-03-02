@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component("reader")
-public class ExampleItemReader implements ItemReader<String> {
-	
-	private String[] input = {"Hello world!", null};
+public class NoOpItemReader implements ItemReader<String> {
 	
 	private int index = 0;
 	
@@ -18,8 +16,10 @@ public class ExampleItemReader implements ItemReader<String> {
 	 * Reads next record from input
 	 */
 	public String read() throws Exception {
-		if (index < input.length) {
-			return input[index++];
+		if (index < 1) {
+			System.out.println("------------------------------");
+			index++;
+			return "done";
 		}
 		else {
 			return null;

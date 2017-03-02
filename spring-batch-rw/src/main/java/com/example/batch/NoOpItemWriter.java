@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
  * Dummy {@link ItemWriter} which only logs data it receives.
  */
 @Component("writer")
-public class ExampleItemWriter implements ItemWriter<Object> {
+public class NoOpItemWriter implements ItemWriter<Object> {
 
-	private static final Log log = LogFactory.getLog(ExampleItemWriter.class);
+	private static final Log log = LogFactory.getLog(NoOpItemWriter.class);
 	
 	/**
 	 * @see ItemWriter#write(java.util.List)
