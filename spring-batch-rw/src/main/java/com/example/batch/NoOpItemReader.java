@@ -1,5 +1,7 @@
 package com.example.batch;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Component;
 @Component("reader")
 public class NoOpItemReader implements ItemReader<String> {
 	
+	private static final Log log = LogFactory.getLog(NoOpItemReader.class);
+
 	private int index = 0;
 	
 	/**
@@ -17,7 +21,7 @@ public class NoOpItemReader implements ItemReader<String> {
 	 */
 	public String read() throws Exception {
 		if (index < 1) {
-			System.out.println("------------------------------");
+			log.info("-------------------");
 			index++;
 			return "done";
 		}
