@@ -17,8 +17,8 @@ public class TaskletStep3 implements Tasklet{
     public RepeatStatus execute(StepContribution contribution,
             ChunkContext chunkContext) throws Exception {
     	log.info("------------------------------------------");
-		log.info("Inside step 3");
-		log.info("------------------------------------------");
+	log.info("Inside step 3");
+	log.info("------------------------------------------");
         
         return RepeatStatus.FINISHED;
     }
