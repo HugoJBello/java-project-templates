@@ -28,7 +28,8 @@
 			</batch:tasklet>
 		</batch:step>
 		<batch:step id="step3">
-			<batch:tasklet ref="taskletStep3">
+			<batch:tasklet ref="taskletStep3" transaction-manager="transactionManager"
+				start-limit="100">
 			</batch:tasklet>
 		</batch:step>
 	</batch:job>
