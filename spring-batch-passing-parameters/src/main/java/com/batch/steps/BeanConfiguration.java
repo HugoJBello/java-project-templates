@@ -54,13 +54,5 @@ public class BeanConfiguration {
 	public PlatformTransactionManager transactionManager() {
 		return new DataSourceTransactionManager(dataSource());
 	}
-	
-	@Bean(name="promotionListener")
-	public ExecutionContextPromotionListener promotionListener(){
-		ExecutionContextPromotionListener exLis = new ExecutionContextPromotionListener();
-		String[] key = {"someStringToPass"};
-		exLis.setKeys(key);
-		return exLis;
-	}
 
 }

@@ -14,9 +14,6 @@
 			<batch:tasklet ref="taskletStep1" transaction-manager="transactionManager"
 				start-limit="100">
 			</batch:tasklet>
-			<batch:listeners>
-				<batch:listener ref="promotionListener" />
-			</batch:listeners>
 		</batch:step>
 		<batch:step id="step2" next="step3">
 			<batch:tasklet transaction-manager="transactionManager"
