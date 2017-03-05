@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>showing images</title>
+</h:head>
+<h:body>
+
+	<h:form>
+		<h3>showing images:</h3>
+
+		<h:outputLink value="faces/forum.xhtml">
+			<ui:repeat var="item" value="#{sessionPhotos.listOfFilesString}">
+				<h:graphicImage value="/images/#{item}"
+					rendered="#{activationBean.active}" />
+			</ui:repeat>
+		</h:outputLink>
+
+
+
+	</h:form>
+
+</h:body>
+</html>

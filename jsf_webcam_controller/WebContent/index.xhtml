@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Webcam control</title>
+</h:head>
+<h:body>
+
+	<h:form>
+		<h3>You are controlling:</h3>
+		<table>
+			<tr>
+				<td>System:</td>
+				<td><h:outputText value="#{configuration.os}" /></td>
+			</tr>
+			<tr>
+				<td>User:</td>
+				<td><h:outputText value="#{configuration.user}" /></td>
+			</tr>
+			<tr>
+				<td>Webcam:</td>
+				<td><h:outputText value="#{configuration.webcamInfo}" /></td>
+			</tr>
+		</table>
+		<h3>Detect movement</h3>
+		<table>
+			<tr>
+				<td>Stop in:</td>
+				<td><h:inputText value="#{detectMotion.stopInSeconds}" /></td>
+			</tr>
+			<tr>
+				<td>Folder:</td>
+				<td><h:inputText value="#{detectMotion.destinyFolder}" /></td>
+			</tr>
+		</table>
+		<p>
+			<h:commandButton value="START" action="#{detectMotion.record}" />
+		</p>
+		<p>
+			<ui:repeat var="item" value="#{detectMotion.listOfObtaiedImages}">
+				<h3>#{item}</h3>
+			</ui:repeat>
+		</p>
+		 
+
+ 		<h:graphicImage value="/images/20161008-163003.jpg" />
+		<h:commandButton value="download" action="#{formBean.downloadFile}" />
+
+
+	</h:form>
+
+</h:body>
+</html>
