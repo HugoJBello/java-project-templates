@@ -29,7 +29,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		model.addAttribute("Input", new Input());
+		model.addAttribute("codeForm", new CodeForm());
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -49,20 +49,21 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
 		String formattedDate = dateFormat.format(date);
-		model.addAttribute("input",new Input());
+		model.addAttribute("codeForm",new CodeForm());
 		model.addAttribute("serverTime", formattedDate );
 
 		return "home";
 	}
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
-	public ModelAndView listNotes(@ModelAttribute("Input") Input id) {
-		String text = "the text is " + id.getInputText();
+	public ModelAndView listNotes(@ModelAttribute("codeForm") CodeForm inOutForm) {
+		String text = "the text is " + inOutForm.getInputText();
+		inOutForm.setOutputText("bla bla" + inOutForm.getInputText());
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("result");
-		mv.addObject("text", text);
+		mv.setViewName("home");
+		mv.addObject("codeForm", inOutForm);
 		//mv.addAtribute("Input",id);
-		System.out.println(id.getInputText());    
+		System.out.println(inOutForm.getInputText());    
 		return mv;
 	}
 //	@RequestMapping(value = "/send", method = RequestMethod.POST)
