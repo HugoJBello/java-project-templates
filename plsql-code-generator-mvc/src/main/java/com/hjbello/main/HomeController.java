@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hjbello.generator.ObjectToDbmsOutput;
+import com.hjbello.generator.TableToDbmsOutput;
 /**
  * Handles requests for the application home page.
  */
@@ -57,8 +59,21 @@ public class HomeController {
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
 	public ModelAndView listNotes(@ModelAttribute("codeForm") CodeForm inOutForm) {
-		String text = "the text is " + inOutForm.getInputText();
-		inOutForm.setOutputText("bla bla" + inOutForm.getInputText());
+		String output= "";
+		if (inOutForm.getCodeOrigin().contains("object")){
+		ObjectToDbmsOutput objConv = new ObjectToDbmsOutput();
+		objConv.setIndexName(inOutForm.getIndexName());
+		objConv.setVariableName(inOutForm.getVariableName());
+		objConv.setWithLoop(inOutForm.getWithLoop());
+		output= objConv.convert(inOutForm.getInputText());
+		} else {
+		TableToDbmsOutput objConv = new TableToDbmsOutput();
+		objConv.setIndexName(inOutForm.getIndexName());
+		objConv.setVariableName(inOutForm.getVariableName());
+		objConv.setWithLoop(inOutForm.getWithLoop());
+		output= objConv.convert(inOutForm.getInputText());
+		}
+		inOutForm.setOutputText(output);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("home");
 		mv.addObject("codeForm", inOutForm);
@@ -66,14 +81,5 @@ public class HomeController {
 		System.out.println(inOutForm.getInputText());    
 		return mv;
 	}
-//	@RequestMapping(value = "/send", method = RequestMethod.POST)
-//	public ModelAndView listNotes(@RequestParam("id") String id) {
-//		String text = "the text is " + id;
-//		ModelAndView mv = new ModelAndView();
-//		mv.setViewName("result");
-//		mv.addObject("text", text);
-//		System.out.println(id);    
-//		return mv;
-//	}
 
 }

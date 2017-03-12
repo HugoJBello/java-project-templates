@@ -11,7 +11,7 @@ public class CodeForm {
 	private String inputText ="..";
 	private String outputText ="";
 	private String codeOrigin = "from object";
-	private String withLoop ="N";
+	private boolean withLoop =true;
 	private String indexName = "i";
 	private String variableName = "result";
 	private String error = "";
@@ -20,7 +20,7 @@ public class CodeForm {
 
 	}
 
-	public CodeForm(String inputText, String outputText, String codeOrigin, String withLoop, String indexName,
+	public CodeForm(String inputText, String outputText, String codeOrigin, boolean withLoop, String indexName,
 			String variableName) {
 		super();
 		this.inputText = inputText;
@@ -38,11 +38,11 @@ public class CodeForm {
 		this.error = error;
 	}
 
-	public String getWithLoop() {
+	public boolean getWithLoop() {
 		return withLoop;
 	}
 
-	public void setWithLoop(String withLoop) {
+	public void setWithLoop(boolean withLoop) {
 		this.withLoop = withLoop;
 	}
 

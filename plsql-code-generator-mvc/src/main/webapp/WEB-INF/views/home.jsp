@@ -41,7 +41,7 @@ background-color: #FB031C} */
 						from an object<br>
 						<form:radiobutton path="codeOrigin" value="from type" />
 						from a type<br>
-						<form:checkbox path="withLoop" value="N" />
+						<form:checkbox path="withLoop"/>
 						with loop <br>
 						<table>
 							<tr>
