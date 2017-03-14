@@ -12,8 +12,8 @@ public class App {
 	// to insert data into the database:  
 	User exampleUser = new User();
 	UserPK pk = new UserPK();
-	pk.setUsername("username2");
-	pk.setPassword("pw2");
+	pk.setUsername("username4");
+	pk.setPassword("pw4");
 	
 	exampleUser.setIdPk(pk);
 	exampleUser.setName("Joe");
