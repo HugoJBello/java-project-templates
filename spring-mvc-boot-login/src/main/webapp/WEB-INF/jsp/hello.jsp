@@ -11,6 +11,12 @@
 <title>Hello World!</title>
 </head>
 <body class="security-app">
+ 	<ul>
+  <li><a href="/login">Login</a></li>
+  <li><a href="/home">Home</a></li>
+  <li><a class="active" href="/hello">Hello</a></li>
+  <li><a href="hello/about">About</a></li>
+</ul>
 	<div class="lc-block">
 		<h1>
 			Hello <b><c:out value="${pageContext.request.remoteUser}"></c:out></b>
@@ -20,7 +26,7 @@
 				type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
 		<div>
-			Click <a href="<spring:url value='/hello/home2' />">here</a>  
+			 
 		</div>
 	</div>
 

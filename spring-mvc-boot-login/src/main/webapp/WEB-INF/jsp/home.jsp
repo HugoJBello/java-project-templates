@@ -10,6 +10,13 @@
 <title>Welcome</title>
 </head>
 <body class="security-app">
+<ul>
+  <li><a href="/login">Login</a></li>
+  <li><a  class="active" href="/home">Home</a></li>
+  <li><a href="/hello">Hello</a></li>
+  <li><a href="/hello/about">About</a></li>
+</ul>
+ 
 	<div class="details">
 	 
 	</div>

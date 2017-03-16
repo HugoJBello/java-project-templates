@@ -11,7 +11,12 @@
 <title>Spring Security Example</title>
 </head>
 <body class="security-app">
-	<div class="details"></div>
+	<ul>
+  <li><a class="/active" href="login">Login</a></li>
+  <li><a href="/home">Home</a></li>
+  <li><a href="/hello">Hello</a></li>
+  <li><a href="/hello/about">About</a></li>
+</ul>
 	<form action="/login" method="post">
 		<div class="login">
 			<table>

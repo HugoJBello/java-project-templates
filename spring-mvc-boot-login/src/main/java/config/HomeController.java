@@ -42,7 +42,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home2(Model model) {		
-		return "hello";
+		return "home";
 	}
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String error(Model model) {		
@@ -53,6 +53,14 @@ public class HomeController {
 	@Secured({"ROLE_ADMIN"})
 	public String hello2(Model model) {		
 		return "home2";
+	}
+	
+	@RequestMapping(value = "/hello/about", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN"})
+	public ModelAndView about(Model model) {		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("about");
+		return mv;
 	}
 
 }
