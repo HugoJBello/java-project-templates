@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+	<soap:Body>
+		<tns:RespuestaRecogidaTicketFirmado xmlns:ape="urn:correos.es:ape.sne.datos.1.0" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:tns="urn:correos.es:ape.sne.ws.accesobuzon.1.0" tns:ticketID="56523376">
+			<tns:ContenidoMensaje>
+				<tns:Metadatos tns:ticketID="56523376">
+					<tns:MensajeID>1487685619740</tns:MensajeID>
+					<tns:Estado>ACEPTADA</tns:Estado>
+					<tns:Emisor>Q2863006I</tns:Emisor>
+					<tns:NombreEmisor>GOSDEVO XELETAR ME GA ASODADIA EFFAÑOFA</tns:NombreEmisor>
+					<tns:Titular>A82046061</tns:Titular>
+					<tns:Notificado>A82046061</tns:Notificado>
+					<tns:TipoMensajeria>COMUNICACION</tns:TipoMensajeria>
+					<tns:ActoNotificado>PRUEBA NOTIFICACION</tns:ActoNotificado>
+					<tnsAsunto>Prueba Notificación</tnsAsunto>
+					<tns:Cuerpo>Prueba de Notificacion WS</tns:Cuerpo>
+					<tns:Detalles/>
+					<tns:NombreFicheroAdjunto>000000056523263.pdf
+					</tns:NombreFicheroAdjunto>
+					<tns:FerchaPuestaDisposicion>ACUSE_DE_RECIBO:ACEPTADA</tns:FerchaPuestaDisposicion>
+					<tns:EventoRecogida tipo="ACUSE_DE_RECIBO:ACEPTADA">
+						<ape:Fecha>2017-03-02T15:35:28+01:00</ape:Fecha>
+						<ape:Receptor>
+							<ape:PersonaJuridica>
+								<ape:RazonSocial>razón soc. modif</ape:RazonSocial>
+								<ape:NIF>nie modificado</ape:NIF>
+							</ape:PersonaJuridica>
+						</ape:Receptor>
+					</tns:EventoRecogida>
+					<tns:DatosRecogida>
+					<ape:DatoRecogida><ape:Campo>AEAT_CONCEPTO</ape:Campo><ape:Valor>LIQ. EN EJECUTIVA  C1300016300238304</ape:Valor></ape:DatoRecogida><ape:DatoRecogida><ape:Campo>AEAT_CSV</ape:Campo><ape:Valor>8YGXMC2YCHLX9SQF</ape:Valor></ape:DatoRecogida><ape:DatoRecogida><ape:Campo>AEAT_IMPORTE</ape:Campo><ape:Valor>3232</ape:Valor></ape:DatoRecogida><ape:DatoRecogida><ape:Campo>AEAT_OFICINA_REMITENTE_CODIGO</ape:Campo><ape:Valor>R28952</ape:Valor></ape:DatoRecogida><ape:DatoRecogida><ape:Campo>AEAT_OFICINA_REMITENTE_DIRECCION</ape:Campo><ape:Valor>CASTELLANA 106, MADRID, 28046 MADRID</ape:Valor></ape:DatoRecogida><ape:DatoRecogida><ape:Campo>AEAT_OFICINA_REMITENTE_NOMBRE</ape:Campo><ape:Valor>DEPENDENCIA DE ASISTENCIA Y SERVICIOS TRIBUTARIOS</ape:Valor></ape:DatoRecogida><ape:DatoRecogida><ape:Campo>AEAT_PROCEDIMIENTO_CODIGO</ape:Campo><ape:Valor>RA01</ape:Valor></ape:DatoRecogida><ape:DatoRecogida><ape:Campo>AEAT_PROCEDIMIENTO_DESCRIPCION</ape:Campo><ape:Valor>Procedimiento de apremio</ape:Valor></ape:DatoRecogida><ape:DatoRecogida><ape:Campo>AEAT_REFERENCIA</ape:Campo><ape:Valor>281609525397W</ape:Valor></ape:DatoRecogida><ape:DatoRecogida><ape:Campo>AEAT_TITULAR_PROCEDIMIENTO_NIF</ape:Campo><ape:Valor>A28170496</ape:Valor></ape:DatoRecogida><ape:DatoRecogida><ape:Campo>AEAT_TITULAR_PROCEDIMIENTO_NOMBRE</ape:Campo><ape:Valor>MAPFRE AUTOMOVILES SA SEGUROS REASEGUROS</ape:Valor></ape:DatoRecogida></tns:DatosRecogida>
+				</tns:Metadatos>
+				<tns:Contenido mime="application/pdf">JVBERi0xLjUNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZyhlcy1FUykgL1N0cnVjdFRyZWVSb290IDggMCBSL01hcmtJbmZvPDwvTWFya2VkIHRydWU+Pj4+DQplbmRvYmoNCjIgMCBvYmoNCjw8L1R5cGUvUGFnZXMvQ291bnQgMS9LaWRzWyAzIDAgUl0gPj4NCmVuZG9iag0KMyAwIG9iag0KPDwvVHlwZS9QYWdlL1BhcmVudCAyIDAgUi9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNSAwIFI+Pi9Qcm9jU2V0Wy9QREYvVGV4dC9JbWFnZUIvSW1hZ2VDL0ltYWdlSV0gPj4vTWVkaWFCb3hbIDAgMCA1OTUuMzIgODQxLjkyXSAvQ29udGVudHMgNCAwIFIvR3JvdXA8PC9UeXBlL0dyb3VwL1MvVHJhbnNwYXJlbmN5L0NTL0RldmljZVJHQj4+L1RhYnMvUy9TdHJ1Y3RQYXJlbnRzIDA+Pg0KZW5kb2JqDQo0IDAgb2JqDQo8PC9GaWx0ZXIvRmxhdGVEZWNvZGUvTGVuZ3RoIDE0Mj4+DQpzdHJlYW0NCnicTY3NCsIwEITvgbzDHJODSVbSH6EUTBqlYqHU6KV41ZPvf3UDirLMMswu88HO6Do7xXGA63uEISJkKeyBQGScR35IQXA8hLYyxFFTO7PbIr+kcHiWdZRiVbP2atGVurIS+8Das6A3Xl3YjMWU5Pa5nPUd+SRFYmKhfjnUkGnrf87KLb9fpCniDUpEI+cNCmVuZHN0cmVhbQ0KZW5kb2JqDQo1IDAgb2JqDQo8PC9UeXBlL0ZvbnQvU3VidHlwZS9UcnVlVHlwZS9OYW1lL0YxL0Jhc2VGb250L0FyaWFsL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZy9Gb250RGVzY3JpcHRvciA2IDAgUi9GaXJzdENoYXIgMzIvTGFzdENoYXIgODYvV2lkdGhzIDE1IDAgUj4+DQplbmRvYmoNCjYgMCBvYmoNCjw8L1R5cGUvRm9udERlc2NyaXB0b3IvRm9udE5hbWUvQXJpYWwvRmxhZ3MgMzIvSXRhbGljQW5nbGUgMC9Bc2NlbnQgOTA1L0Rlc2NlbnQgLTIxMC9DYXBIZWlnaHQgNzI4L0F2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
+				</tns:Contenido>
+			</tns:ContenidoMensaje>
+		</tns:RespuestaRecogidaTicketFirmado>
+	</soap:Body>
+</soap:Envelope>
