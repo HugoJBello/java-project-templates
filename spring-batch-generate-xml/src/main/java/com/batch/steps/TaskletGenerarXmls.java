@@ -24,6 +24,8 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,22 +34,28 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 @Component("taskletStep2")
-public class TaskletStep2 implements Tasklet{
+@Scope("step")
+public class TaskletGenerarXmls implements Tasklet{
 
-	private static final Log log = LogFactory.getLog(TaskletStep2.class);
+	private static final Log log = LogFactory.getLog(TaskletGenerarXmls.class);
+	
+	@Value("#{jobExecutionContext['pathInputFile']}")
+	private String pathInputFile;
+	
+	@Value("#{jobExecutionContext['pathInputFileMod']}")
+	private String pathInputFileMod;
 
 	@Override
 	public RepeatStatus execute(StepContribution contribution,
 			ChunkContext chunkContext) throws Exception {
 		log.info("------------------------------------------");
-		log.info("Inside step 2");
+		log.info("Generando archivos xml por primera vez");
 		log.info("------------------------------------------");
 
-		String inputCsvPath = "resources/input4_mod.csv";
-		ArrayList<String> input = (ArrayList<String>) Files.readAllLines(Paths.get(inputCsvPath));		
+		 
+		ArrayList<String> input = (ArrayList<String>) Files.readAllLines(Paths.get(pathInputFileMod));		
 		
-		log.info("creating xml files");
-		String prototypeXmlPath= "resources/ejemploMock.xml";
+		String prototypeXmlPath= "resources/inputs/ejemploMock.xml";
 		Utils obtain = new Utils();
 		
 		int cont = 1;
@@ -67,8 +75,7 @@ public class TaskletStep2 implements Tasklet{
 			int ultimoTicket = 56523371+ cont;
 
 			Node respuesta = cuerpoSoap.getChildNodes().item(1).getChildNodes().item(1);
-			log.info(respuesta.getNodeName());
-			respuesta.getAttributes().getNamedItem("tns:ticketID").setTextContent(""+ultimoTicket);
+ 			respuesta.getAttributes().getNamedItem("tns:ticketID").setTextContent(""+ultimoTicket);
 			
 			//obtemos el nodo contenidoMensaje
 			Node contenidoMensaje = cuerpoSoap.getChildNodes().item(1)
@@ -78,24 +85,19 @@ public class TaskletStep2 implements Tasklet{
 
 			//modificamos atributo de metadato 
 			Node metadatos = contenidoMensaje.getChildNodes().item(1);
-			log.info(metadatos.getNodeName());
-			metadatos.getAttributes().getNamedItem("tns:ticketID").setTextContent(""+ultimoTicket);
+ 			metadatos.getAttributes().getNamedItem("tns:ticketID").setTextContent(""+ultimoTicket);
 
 			//modificamos mensajeID
 			Node mensajeId =metadatos.getChildNodes().item(1);
-			log.info(mensajeId.getNodeName());
-			String mensajeIdStr = camposCsv[0];
+ 			String mensajeIdStr = camposCsv[0];
 			mensajeId.setTextContent(mensajeIdStr);
 
-			for(int i = 0; i<12; i++){
-				if (i<10){
+			for(int i = 0; i<13; i++){
 				Node nodo = metadatos.getChildNodes().item(2*i+1);
+				if (i<10){
 				nodo.setTextContent(camposCsv[i]);
 				} else if(i>10) {
-					int j=i+1;
-					Node nodo = metadatos.getChildNodes().item(2*j+1);
-					nodo.setTextContent(camposCsv[j]);
-					
+					nodo.setTextContent(camposCsv[i-1]);				
 				}
 			}
 
@@ -113,8 +115,7 @@ public class TaskletStep2 implements Tasklet{
 
 			// datos recogida
 			Node datosRecogida = obtain.obtainNode("DatosRecogida",metadatos);		 
-			log.info(datosRecogida.getNodeName());
-
+ 
 			//ape:DatoRecogida
 			InputSource is = new InputSource();
 			is.setCharacterStream(new StringReader("<a>" + camposCsv[14]+"</a>"));

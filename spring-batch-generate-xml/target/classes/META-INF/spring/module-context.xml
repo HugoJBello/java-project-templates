@@ -10,20 +10,32 @@
 	</description>
 
 	<batch:job id="job1">
-		<batch:step id="step1" next="step2">
+	<batch:step id="stepBorrarFicheros" next="stepPrepararCsv">
+			<batch:tasklet ref="taskletBorrarFicheros" transaction-manager="transactionManager"
+				start-limit="100">
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="stepPrepararCsv" next="stepGeneraXmls">
 			<batch:tasklet ref="taskletStep1" transaction-manager="transactionManager"
 				start-limit="100">
 			</batch:tasklet>
 		</batch:step>
-		<batch:step id="step2" next="step3">
+		<batch:step id="stepGeneraXmls" next="stepModificaNie">
 			<batch:tasklet ref="taskletStep2" transaction-manager="transactionManager"
 				start-limit="100">
 			</batch:tasklet>
 		</batch:step>
-		<batch:step id="step3">
+		<batch:step id="stepModificaNie" next="stepModificarCasos">
 			<batch:tasklet transaction-manager="transactionManager"
 				start-limit="100">
 				<batch:chunk reader="readerModificarNie" writer="writerModificarNie"
+					commit-interval="1" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="stepModificarCasos">
+			<batch:tasklet transaction-manager="transactionManager"
+				start-limit="100">
+				<batch:chunk reader="readerModificarCasos" writer="writerModificarCasos"
 					commit-interval="1" />
 			</batch:tasklet>
 		</batch:step>

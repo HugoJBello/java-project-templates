@@ -18,21 +18,27 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Component;
 
 @Component("taskletStep1")
-public class TaskletStep1 implements Tasklet{
+public class TaskletPrepararCsv implements Tasklet{
 
-	private static final Log log = LogFactory.getLog(TaskletStep1.class);
-
+	private static final Log log = LogFactory.getLog(TaskletPrepararCsv.class);
+	
+	private String pathInputFile = "resources/inputs/input5.csv";
+	
+	private String pathInputFileMod;
+	
 	@Override
 	public RepeatStatus execute(StepContribution contribution,
 			ChunkContext chunkContext) throws Exception {
 		log.info("------------------------------------------");
-		log.info("Inside step 1");
+		log.info("preparando el csv para generar los xml");
 		log.info("------------------------------------------");
+		
+ 		chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().put("pathInputFile", pathInputFile);
 
-		String path= "resources/input4.csv";
-		String pathOutput = "resources/input4_mod.csv";
+		pathInputFileMod = pathInputFile.split(".csv")[0] + "_mod.csv"; //resources/input4_mod.csv";
+		chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().put("pathInputFileMod", pathInputFileMod);
 
-		ArrayList<String> input = (ArrayList<String>) Files.readAllLines(Paths.get(path));	
+		ArrayList<String> input = (ArrayList<String>) Files.readAllLines(Paths.get(pathInputFile));	
 		String output="";
 		input.remove(0);
 
@@ -49,25 +55,15 @@ public class TaskletStep1 implements Tasklet{
 		}
 		output = output.replaceAll("\n", " ; ; ; ; ; \n");
 
-		//output=output.replaceAll(";CASO", " * CASO");
-		//output=output.replaceAll("> \\*", ">;");
-		log.info(output);
-
-
-		// Unificar los CASO 1, CASO1 CASO1.3 y demás cosas así
-
-
 		//guardar output en un archivo
 		Writer out = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream(pathOutput), "UTF-8"));
+				new FileOutputStream(pathInputFileMod), "UTF-8"));
 		try {
 			out.write(output);
 		} finally {
 			out.close();
 		}
-		//	PrintWriter out = new PrintWriter(pathOutput);
-		//	out.println(output);
-		//	out.close();
+ 
 
 
 		return RepeatStatus.FINISHED;

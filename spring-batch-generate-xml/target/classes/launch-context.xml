@@ -19,7 +19,9 @@
 	</jdbc:initialize-database>
 
 	<batch:job-repository id="jobRepository" />
-
+    
+<!--     <context:property-placeholder location="classpath:/META-INF/batch-parameters.properties"/>
+ -->
 	<import resource="classpath:/META-INF/spring/module-context.xml" />
 
 

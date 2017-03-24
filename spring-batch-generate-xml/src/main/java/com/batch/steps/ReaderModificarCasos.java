@@ -13,13 +13,14 @@ import java.util.ArrayList;
  * {@link ItemReader} with hard-coded input data.
  */
 
-@Component("readerModificarNie")
-public class ReaderModificarNie implements ItemReader<ArrayList<File>> {
+@Component("readerModificarCasos")
+public class ReaderModificarCasos implements ItemReader<ArrayList<File>> {
 
 
 	private String dirXml= "resources/outputs/";
 	private int index = 0;
-	private static final Log log = LogFactory.getLog(ReaderModificarNie.class);
+	private static final Log log = LogFactory.getLog(ReaderModificarCasos.class);
+	private String pattern = "CASO";
 	
 	private ArrayList<File> filesWithPattern = new ArrayList<File>();
 
@@ -30,7 +31,9 @@ public class ReaderModificarNie implements ItemReader<ArrayList<File>> {
 			log.info("-----------------------------------------------");
 
 			for (File file : new File(dirXml).listFiles()){
+				if (file.getName().contains(pattern)){
 					filesWithPattern.add(file);
+				}
 					log.info("found file:");
 					log.info(file.getName());
 				
