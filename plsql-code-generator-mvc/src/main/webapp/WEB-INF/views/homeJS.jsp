@@ -10,7 +10,7 @@
 <link href="<spring:url value="/resources/static/css/app.css" />" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<h1>Hello world!</h1>
+	<h1>dbms_output generator</h1>
 	 
 	
 	<form:form method="post" modelAttribute="codeForm">
@@ -27,7 +27,7 @@
 						from an object<br>
 						<form:radiobutton id="codeOriginType" path="codeOrigin" value="from type" />
 						from a type<br>
-						<form:checkbox id="withLoop" path="withLoop"/>
+						<form:checkbox id="withLoop" path="withLoop" checked="checked"/>
 						with loop <br>
 						<table>
 							<tr>
