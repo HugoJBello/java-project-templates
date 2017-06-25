@@ -5,17 +5,17 @@ import java.util.Date;
 
 public class CapturedMovement {
 
-	private Date dateOfCapture;
+	private String dateOfCapture;
 
 	private ArrayList<String> imagesPath;
 
 	private ArrayList<byte[]> imagesBase64;
 
-	public Date getDateOfCapture() {
+	public String getDateOfCapture() {
 		return dateOfCapture;
 	}
 
-	public void setDateOfCapture(Date dateOfCapture) {
+	public void setDateOfCapture(String dateOfCapture) {
 		this.dateOfCapture = dateOfCapture;
 	}
 
@@ -27,7 +27,7 @@ public class CapturedMovement {
 		this.imagesBase64 = imagesBase64;
 	}
 
-	public CapturedMovement(Date dateOfCapture, ArrayList<byte[]> imagesBase64) {
+	public CapturedMovement(String dateOfCapture, ArrayList<byte[]> imagesBase64) {
 		super();
 		this.dateOfCapture = dateOfCapture;
 		this.imagesBase64 = imagesBase64;
