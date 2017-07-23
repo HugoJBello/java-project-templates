@@ -18,13 +18,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class WebcamRestWS {
 
-	private String url = "http://localhost:8080/capture/";
+	private String url = "http://localhost:8080";
 	private String user = "user";
 	private String password = "1234";
 
  
 	public CapturedMovement invokeWecamRestWS ( RequestCapture requestCapture) throws JsonProcessingException{
 		//First we prepare the authentification
+		String urlCapture = url + "/capture/";
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		BasicCredentialsProvider credentialsProvider =  new BasicCredentialsProvider();
 		credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(user, password));
@@ -40,7 +41,22 @@ public class WebcamRestWS {
 
 		//We invoke the web service
 		RestTemplate restTemplate = new RestTemplate(rf);
-		CapturedMovement response = restTemplate.postForObject(url,request, CapturedMovement.class);
+		CapturedMovement response = restTemplate.postForObject(urlCapture,request, CapturedMovement.class);
+		return response;
+	}
+	
+	public SystemInfo obtainWebcamInfoRestWS () throws JsonProcessingException{
+		//First we prepare the authentification
+		String urlInfo = url + "/camInfo/";
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		BasicCredentialsProvider credentialsProvider =  new BasicCredentialsProvider();
+		credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(user, password));
+		httpClient.setCredentialsProvider(credentialsProvider);
+		ClientHttpRequestFactory rf = new HttpComponentsClientHttpRequestFactory(httpClient);
+
+		//We invoke the web service
+		RestTemplate restTemplate = new RestTemplate(rf);
+		SystemInfo response = restTemplate.getForObject(urlInfo,SystemInfo.class);
 		return response;
 	}
 

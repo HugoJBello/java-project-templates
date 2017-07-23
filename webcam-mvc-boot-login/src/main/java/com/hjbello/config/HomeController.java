@@ -6,17 +6,25 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hjbello.config.DetectForm;
+import com.hjbello.restfulws.CapturedMovement;
+import com.hjbello.restfulws.RequestCapture;
+import com.hjbello.restfulws.SystemInfo;
+import com.hjbello.restfulws.WebcamRestWS;
 import com.hjbello.webcam.ConfigurationBean;
 import com.hjbello.webcam.DetectMotion;
 
@@ -69,14 +77,14 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/cam-movement", method=RequestMethod.GET)
 	@Secured({"ROLE_ADMIN"})
-	public ModelAndView camMovement() {
+	public ModelAndView camMovement() throws JsonProcessingException {
  	    ModelAndView mv = new ModelAndView();
- 	    ConfigurationBean cb = new ConfigurationBean();
- 	    cb.init();
- 	    mv.addObject("operativeSystem",cb.getOs());
-	    mv.addObject("webcamInfo",cb.getWebcamInfo());
-	    mv.addObject("webcamResolution",cb.getResolution());
-	    mv.addObject("user",cb.getUser());
+ 	    WebcamRestWS wcRest = new WebcamRestWS();
+ 	    SystemInfo sysInvo = wcRest.obtainWebcamInfoRestWS();
+ 	    mv.addObject("operativeSystem",sysInvo.getOperativeSystem());
+	    mv.addObject("webcamInfo",sysInvo.getCamInfo());
+	    mv.addObject("webcamResolution",sysInvo.getResolution());
+	    mv.addObject("user",sysInvo.getSystemCamUser());
 	    
 	    DetectMotion dm = new DetectMotion();
 	    dm.obtainFolderNames();
@@ -90,14 +98,14 @@ public class HomeController {
 	    }
 	@RequestMapping(value = "/cam-movement", method=RequestMethod.POST)
 	@Secured({"ROLE_ADMIN"})
-	public ModelAndView camMovement2(@ModelAttribute("detectForm") DetectForm detectForm) {
+	public ModelAndView camMovement2(@ModelAttribute("detectForm") DetectForm detectForm) throws JsonProcessingException {
  	    ModelAndView mv = new ModelAndView();
- 	    ConfigurationBean cb = new ConfigurationBean();
- 	    cb.init();
- 	    mv.addObject("operativeSystem",cb.getOs());
- 	    mv.addObject("webcamInfo",cb.getWebcamInfo());
- 	    mv.addObject("webcamResolution",cb.getResolution());
-	    mv.addObject("user",cb.getUser());
+ 	    WebcamRestWS wcRest = new WebcamRestWS();
+	    SystemInfo sysInvo = wcRest.obtainWebcamInfoRestWS();
+	    mv.addObject("operativeSystem",sysInvo.getOperativeSystem());
+	    mv.addObject("webcamInfo",sysInvo.getCamInfo());
+	    mv.addObject("webcamResolution",sysInvo.getResolution());
+	    mv.addObject("user",sysInvo.getSystemCamUser());
 	    
 	    DetectMotion dm = new DetectMotion();
 	    dm.setStopInSeconds(detectForm.getSeconds());
@@ -109,4 +117,5 @@ public class HomeController {
 		return mv;
 	    }
 
+	 
 }

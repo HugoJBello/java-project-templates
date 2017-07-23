@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="<c:url value="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" />"></script>
 <link href="<c:url value="css/app.css" />" rel="stylesheet"
 	type="text/css">
 <title>Hello World!</title>
@@ -36,30 +37,78 @@
 				<td>${webcamInfo}</td>
 			</tr>
 		</table>
-
-		<form:form method="post" action="cam-movement"
-			modelAttribute="detectForm">
-			<h3>Detect movement</h3>
-			<table>
+		
+		<h3>Detect movement</h3>
+        <form class="invokeCam" id="invokeCam">
+        <table>
 				<tr>
 					<td>Stop in:</td>
-					<td><form:input type="text" path="seconds" /></td>
+					<td><input type=text id="seconds"></td>
 				</tr>
 				<tr>
-					<td>Folder:</td>
-					<td><form:input type="text" path="folder" /></td>
+					<td></td>
+					<td><button type="submit">capture</button></td>
 				</tr>
 			</table>
-			<p>
-				<input type="submit" value="Start" />
-			</p>
-			<img alt="bla bla" src="/images/${todaysFolder}/20170318-03_20_36.jpg">
-		</form:form>
-
-
-
-
+		</form>
+		
+       <div id="img_preview" style="width:250px; height:250px;"></div>	
+       
+       	<input type="hidden" id="csrfToken" value="${_csrf.token}"/>
+        <input type="hidden" id="csrfHeader" value="${_csrf.headerName}"/>
 	</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$("#invokeCam").submit(function(event) {
+		// Prevent the form from submitting via the browser.
+		event.preventDefault();
+		invokeCamAjax();
+
+	});
+});
+
+function invokeCamAjax() {
+	
+	var token = $('#csrfToken').val();
+	var header = $('#csrfHeader').val();	
+	var data = {}
+	data["seconds"] = parseInt($("#seconds").val());
+
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "${home}/invokeRestful/",
+		data : JSON.stringify(data),
+		dataType : 'json',
+		beforeSend: function(xhr) {
+	        xhr.setRequestHeader("Accept", "application/json");
+	        xhr.setRequestHeader("Content-Type", "application/json");
+	        xhr.setRequestHeader(header, token);
+	    },
+		timeout : 9900000,
+		success : function(data) {
+			console.log("SUCCESS: ", data);
+			//display(data);
+			display(data);
+		},
+		error : function(e) {
+			console.log("ERROR: ", e);
+			display(e);
+		},
+		done : function(e) {
+			console.log("DONE");
+		}
+	});
+}
+
+function display (data){
+ 	var base64_string = data.imagesBase64[0];
+    var $img = $("<img/>");
+    $img.attr("src", "data:image/png;base64," + base64_string);
+    $("#img_preview").append($img);	
+}
+</script>
 
 </body>
 </html>
