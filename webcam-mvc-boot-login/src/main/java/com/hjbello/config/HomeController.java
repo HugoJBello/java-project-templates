@@ -25,8 +25,7 @@ import com.hjbello.restfulws.CapturedMovement;
 import com.hjbello.restfulws.RequestCapture;
 import com.hjbello.restfulws.SystemInfo;
 import com.hjbello.restfulws.WebcamRestWS;
-import com.hjbello.webcam.ConfigurationBean;
-import com.hjbello.webcam.DetectMotion;
+
 
 /**
  * Handles requests for the application home page.
@@ -86,16 +85,12 @@ public class HomeController {
 	    mv.addObject("webcamResolution",sysInvo.getResolution());
 	    mv.addObject("user",sysInvo.getSystemCamUser());
 	    
-	    DetectMotion dm = new DetectMotion();
-	    dm.obtainFolderNames();
-	    mv.addObject("todaysFolder","Users/"+dm.getTodaysFolder().split("Users")[1]);
 	    
- 	    DetectForm df = new DetectForm();
- 	    mv.addObject("detectForm",df);
  	    mv.addObject("seconds","null");
 		mv.setViewName("control_cam");
 		return mv;
 	    }
+	
 	@RequestMapping(value = "/cam-movement", method=RequestMethod.POST)
 	@Secured({"ROLE_ADMIN"})
 	public ModelAndView camMovement2(@ModelAttribute("detectForm") DetectForm detectForm) throws JsonProcessingException {
@@ -107,11 +102,11 @@ public class HomeController {
 	    mv.addObject("webcamResolution",sysInvo.getResolution());
 	    mv.addObject("user",sysInvo.getSystemCamUser());
 	    
-	    DetectMotion dm = new DetectMotion();
-	    dm.setStopInSeconds(detectForm.getSeconds());
-	    dm.record();
-	    
-	    mv.addObject("todaysFolder",dm.getTodaysFolder().split("Users")[1]);
+//	    DetectMotion dm = new DetectMotion();
+//	    dm.setStopInSeconds(detectForm.getSeconds());
+//	    dm.record();
+//	    
+//	    mv.addObject("todaysFolder",dm.getTodaysFolder().split("Users")[1]);
  	    mv.addObject("seconds",detectForm.getSeconds());
 		mv.setViewName("control_cam");
 		return mv;
