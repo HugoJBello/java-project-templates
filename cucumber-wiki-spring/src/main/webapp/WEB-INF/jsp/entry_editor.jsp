@@ -24,31 +24,34 @@
       $('#liUpload').attr('class','');
     });  
   </script>
+  <form:form  id='formEntry' action='/entry_editor' method='post' modelAttribute='newEntryForm'>
   
   <c:if test="${hasEntries}">
  	<br>
-  	<textarea id="text" rows="80" cols="80">${entry.contents}</textarea> 
-      <input type='hidden' name='entry_name' value='${entry.entryName}'/>
-      <input type='hidden' name='title' value='${ntry.title}'/>
+ 	
+  	<form:textarea id="text" rows="80" cols="80" path='contents' value='${entry.contents}'/> 
+      <form:input type='hidden' name='entry_name' path='entryName' value='${entry.entryName}'/>
+      <form:input type='hidden' name='title' path='title' value='${entry.title}'/>
       <input type='hidden' name='created_at' value='${entry.createdAt}'/>
       
       <div>Cathegories:</div>
-      <input name='cathegoriesSemicolom', id='cathegories', placeholder="Cathegories separateb by ;" value='${entry.cathegories}'/>
+      <form:input name='cathegoriesSemicolom' id='cathegories' path='cathegories' placeholder="Cathegories separateb by ;" value='${entry.cathegories}'/>
+  
   </c:if>
   
   <c:if test="${!hasEntries}">
  	<br>
  	<input id='is_new' type='hidden' name='new' value='true'/>
-  	<textarea id="content" rows="80" cols="80"></textarea> 
+  	<form:textarea id="contents" rows="80" cols="80" path='contents'></form:textarea> 
   	<p value="Creating new entry with title: " class="lead">
-	  <input id="title" type="text" name="title" value="Title"/>
+	  <form:input id="title" type="text" path="title" value="Title"/>
 	  <div id="div_available"><font color="red">(the title can not be empty)</font></div><br/>
 	  <emph>Entry name: </emph>
 	  <div id="div_entry_name" value="title"></div>
-	  <input id="entry_name_hidden" type="hidden" name="entry_name"/>
+	  <form:input id="entry_name_hidden" type="hidden" path="entryName"/>
 	</p>
 	<div>Cathegories:</div>
-      <input name='cathegoriesSemicolom', id='cathegories', placeholder="Cathegories separateb by ;"/>
+      <form:input name='cathegoriesSemicolom' id='cathegories' path="cathegories" placeholder="Cathegories separateb by ;"/>
   
 	<script type="text/javascript">
     var divEntryName = $( "#div_entry_name" );
@@ -85,8 +88,11 @@
     });
 
 	</script>
-	
+
+  </c:if>
 	<button id="button" type="submit" class="btn btn-default">Submit</button>
+</form:form>
+	
   <script>
     $(function(){
         $('#liView').attr('class','');
@@ -104,8 +110,8 @@
       });
     });
   </script>
-
-  </c:if>
+  
+  
   
   </body>
 </html>

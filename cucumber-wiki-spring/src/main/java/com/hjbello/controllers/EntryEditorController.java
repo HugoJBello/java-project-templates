@@ -1,5 +1,6 @@
 package com.hjbello.controllers;
 
+import java.util.Date;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.github.rjeschke.txtmark.Processor;
+import com.hjbello.controllers.utils.NewEntryForm;
 import com.hjbello.controllers.utils.PageEntryProcessor;
 import com.hjbello.dao.PageEntry;
 import com.hjbello.dao.PageEntryRepository;
@@ -43,9 +46,35 @@ public class EntryEditorController {
 		
 		PageEntry entry = pageEntryRepository.findByEntryName(entryName);
 		
+		model.addAttribute(new NewEntryForm());
+		
 		mv = entryProcessor.processEntry(mv, entry);
 		
 		mv.setViewName("entry_editor");
+		return mv;
+	}
+
+	
+	@RequestMapping(value = "/entry_editor", method = RequestMethod.POST)
+	@Secured({"ROLE_USER"})
+	public @ResponseBody ModelAndView entrySave(@ModelAttribute(value="newEntryForm") NewEntryForm newEntry, Model model) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("hasEntryName",false);
+		
+		PageEntry entry = new PageEntry();
+		entry.setEntryName(newEntry.getEntryName());
+		entry.setTitle(newEntry.getTitle());
+		entry.setContents(newEntry.getContents());
+		entry.setCathegories(newEntry.getCathegories());
+		Date date = new Date();
+		entry.setUpdatedAt(date);
+		entry.setCreatedAt(date);
+		
+		pageEntryRepository.save(entry);
+		
+		mv = entryProcessor.processEntry(mv, entry);
+		
+		mv.setViewName("entry_viewer");
 		return mv;
 	}
 
