@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
 import com.github.rjeschke.txtmark.Processor;
 import com.hjbello.controllers.utils.NewEntryForm;
 import com.hjbello.controllers.utils.PageEntryProcessor;
@@ -45,8 +47,12 @@ public class EntryEditorController {
 		mv.addObject("hasEntryName",false);
 		
 		PageEntry entry = pageEntryRepository.findByEntryName(entryName);
-		
-		model.addAttribute(new NewEntryForm());
+		NewEntryForm entryForm = new NewEntryForm();
+		entryForm.setContents(entry.getContents());
+		entryForm.setEntryName(entry.getEntryName());
+		entryForm.setCathegories(entry.getCathegories());
+		entryForm.setTitle(entry.getTitle());
+		model.addAttribute(entryForm);
 		
 		mv = entryProcessor.processEntry(mv, entry);
 		
@@ -57,7 +63,7 @@ public class EntryEditorController {
 	
 	@RequestMapping(value = "/entry_editor", method = RequestMethod.POST)
 	@Secured({"ROLE_USER"})
-	public @ResponseBody ModelAndView entrySave(@ModelAttribute(value="newEntryForm") NewEntryForm newEntry, Model model) {
+	public @ResponseBody RedirectView entrySave(@ModelAttribute(value="newEntryForm") NewEntryForm newEntry, Model model) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("hasEntryName",false);
 		
@@ -72,10 +78,8 @@ public class EntryEditorController {
 		
 		pageEntryRepository.save(entry);
 		
-		mv = entryProcessor.processEntry(mv, entry);
 		
-		mv.setViewName("entry_viewer");
-		return mv;
+		return new RedirectView("/entry/" + entry.getEntryName());
 	}
 
 

@@ -10,7 +10,9 @@
 <html>
   <head>
      <link href="<c:url value="/css/style.css" />" rel="stylesheet" type="text/css">
-     <script type="text/javascript" src="<c:url value="/js/filename_utils.js"/>"></script>  
+     <script type="text/javascript" src="<c:url value="/js/filename_utils.js"/>"></script> 
+     <link rel='stylesheet' href="<c:url value="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"/>">
+  	 <script src="<c:url value="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"/>"></script> 
     <title></title>
     
   </head>
@@ -29,10 +31,10 @@
   <c:if test="${hasEntries}">
  	<br>
  	
-  	<form:textarea id="text" rows="80" cols="80" path='contents' value='${entry.contents}'/> 
-      <form:input type='hidden' name='entry_name' path='entryName' value='${entry.entryName}'/>
-      <form:input type='hidden' name='title' path='title' value='${entry.title}'/>
-      <input type='hidden' name='created_at' value='${entry.createdAt}'/>
+  	<form:textarea id="text" rows="80" cols="80" path='contents'/>
+      <form:input type='hidden' name='entry_name' path='entryName'/>
+      <form:input type='hidden' name='title' path='title'/>
+      <input type='hidden' name='created_at'/>
       
       <div>Cathegories:</div>
       <form:input name='cathegoriesSemicolom' id='cathegories' path='cathegories' placeholder="Cathegories separateb by ;" value='${entry.cathegories}'/>
@@ -42,7 +44,7 @@
   <c:if test="${!hasEntries}">
  	<br>
  	<input id='is_new' type='hidden' name='new' value='true'/>
-  	<form:textarea id="contents" rows="80" cols="80" path='contents'></form:textarea> 
+  	<form:textarea id="text" rows="80" cols="80" path='contents'></form:textarea> 
   	<p value="Creating new entry with title: " class="lead">
 	  <form:input id="title" type="text" path="title" value="Title"/>
 	  <div id="div_available"><font color="red">(the title can not be empty)</font></div><br/>
