@@ -1,3 +1,4 @@
+drop database userbase;
 create database userbase;
 
 use userbase;
@@ -34,7 +35,6 @@ CREATE TABLE page_entries (
   CONSTRAINT fk_updated_by FOREIGN KEY (updated_by) REFERENCES users (userid),
   CONSTRAINT fk_created_by FOREIGN KEY (created_by) REFERENCES users (userid));
 
-
 INSERT INTO users(username,email,password,enabled)
 VALUES ('hjbello','abc@abc.com','1234', true);
 
@@ -44,3 +44,7 @@ INSERT INTO user_roles (userid, role)
 VALUES (001, 'ROLE_USER');
 INSERT INTO user_roles (userid, role)
 VALUES (001, 'ROLE_ADMIN');
+
+INSERT INTO page_entries( title, entry_name, contents,cathegories,created_by,updated_by)
+values ('entry test 1', 'entry_test_1', '## Title \n **bold** this is entry test 1\n *italic*', 'cathegory 1; cathegory 2',001,001);
+

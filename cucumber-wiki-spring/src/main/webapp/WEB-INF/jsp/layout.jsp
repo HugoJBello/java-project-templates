@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href= "<c:url value= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>" rel="stylesheet">
     <script src= "<c:url value= "http://code.jquery.com/jquery.js"/>"></script>
-    <link href="<c:url value="css/style.css" />" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/css/style.css" />" rel="stylesheet" type="text/css">
     <script src= "<c:url value= "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>"></script>
     <style type="text/css">
       .navbar-fixed-top {

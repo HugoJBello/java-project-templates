@@ -31,21 +31,28 @@ public class HomeController {
 	PageEntryRepository pageEntryRepository;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {		
+	public @ResponseBody ModelAndView home(Model model) {		
 		logger.info("Accessing home page");
-		return "home";
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("home");
+		return mv;
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String homePage(Model model) {		
+	public @ResponseBody ModelAndView homePage(Model model) {		
 		logger.info("Accessing home page");
-		return "home";
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("home");
+		return mv;
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model) {
+	public @ResponseBody ModelAndView login(Model model) {
 		logger.info("Accessing login page");
-		return "login";
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login");
+
+		return mv;
 	}
 	
 	 

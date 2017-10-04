@@ -19,7 +19,7 @@
 		<c:when test="${hasEntries}">
 		<h1>${entry.title}</h1>
 		  <ul class="nav nav-tabs">
-		    <li id="liView"><a id="view" href="/entry_viewer/${entry.entryName}">
+		    <li id="liView"><a id="view" href="/entry/${entry.entryName}">
 		        View
 		         <span class="glyphicon glyphicon-eye-open"></span></a></li>
 		    <li id="liEdit"><a id="edit" href="/entry_editor/${entry.entryName}">
@@ -35,7 +35,7 @@
 		<c:if test="${has_entry_name}">
 			<h1>${entryName}</h1>
 			  <ul class="nav nav-tabs">
-			    <li id="liView"><a id="view" href="/entry_viewer/${entryName}">
+			    <li id="liView"><a id="view" href="/entry/${entryName}">
 			        View
 			         <span class="glyphicon glyphicon-eye-open"></span></a></li>
 			    <li id="liEdit"><a id="edit" href="/entry_editor/${entryName}">

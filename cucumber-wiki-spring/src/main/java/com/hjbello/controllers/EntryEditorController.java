@@ -20,15 +20,14 @@ import com.hjbello.controllers.utils.PageEntryProcessor;
 import com.hjbello.dao.PageEntry;
 import com.hjbello.dao.PageEntryRepository;
 
-
 /**
  * Handles requests for the application home page.
  */
 @Controller
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class EntryViewerController {
+public class EntryEditorController {
 
-	private static final Logger logger = LoggerFactory.getLogger(EntryViewerController.class);
+	private static final Logger logger = LoggerFactory.getLogger(EntryEditorController.class);
 
 	PageEntryProcessor entryProcessor = new PageEntryProcessor();
 	
@@ -36,7 +35,7 @@ public class EntryViewerController {
 	PageEntryRepository pageEntryRepository;
 
 
-	@RequestMapping(value = "/entry/{entryName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/entry_editor/{entryName}", method = RequestMethod.GET)
 	@Secured({"ROLE_USER"})
 	public @ResponseBody ModelAndView entry(@PathVariable(value="entryName") String entryName, Model model) {
 		ModelAndView mv = new ModelAndView();
@@ -44,18 +43,12 @@ public class EntryViewerController {
 		
 		PageEntry entry = pageEntryRepository.findByEntryName(entryName);
 		
-		if (entry!=null){
-			mv.addObject("hasEntries",true);
-			mv.addObject("entry", entry);
-			String textInHtml = Processor.process(entry.getContents());
-			mv.addObject("textInHtml",textInHtml);	
-
-			mv = entryProcessor.processEntry(mv, entry);
-
-		}
-		mv.setViewName("entry_viewer");
+		mv = entryProcessor.processEntry(mv, entry);
+		
+		mv.setViewName("entry_editor");
 		return mv;
 	}
 
 
+	
 }
