@@ -35,7 +35,7 @@ public class EntryEditorController {
 	private static final Logger logger = LoggerFactory.getLogger(EntryEditorController.class);
 
 	PageEntryProcessor entryProcessor = new PageEntryProcessor();
-	
+
 	@Autowired
 	PageEntryRepository pageEntryRepository;
 
@@ -45,7 +45,7 @@ public class EntryEditorController {
 	public @ResponseBody ModelAndView entry(@PathVariable(value="entryName") String entryName, Model model) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("hasEntryName",false);
-		
+
 		PageEntry entry = pageEntryRepository.findByEntryName(entryName);
 		NewEntryForm entryForm = new NewEntryForm();
 		entryForm.setContents(entry.getContents());
@@ -53,20 +53,59 @@ public class EntryEditorController {
 		entryForm.setCathegories(entry.getCathegories());
 		entryForm.setTitle(entry.getTitle());
 		model.addAttribute(entryForm);
-		
+
 		mv = entryProcessor.processEntry(mv, entry);
-		
+
 		mv.setViewName("entry_editor");
 		return mv;
 	}
 
+	@RequestMapping(value = "/entry_editor", method = RequestMethod.GET)
+	@Secured({"ROLE_USER"})
+	public @ResponseBody ModelAndView newEntry(Model model) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("hasEntryName",false);
+		mv.addObject("hasEntries",false);
+
+		NewEntryForm entryForm = new NewEntryForm();
+		model.addAttribute(entryForm);
+		
+		mv.setViewName("entry_editor");
+		return mv;
+	}
 	
+//	@RequestMapping(value = "/entry_editor_new", method = RequestMethod.POST)
+//	@Secured({"ROLE_USER"})
+//	public @ResponseBody RedirectView entryEditorNew(@ModelAttribute(value="newEntryForm") NewEntryForm newEntry, Model model) {
+//		ModelAndView mv = new ModelAndView();
+//		mv.addObject("hasEntryName",false);
+//
+//		PageEntry entry=processForm(newEntry);
+//
+//		pageEntryRepository.insert(entry);
+//
+//		return new RedirectView("/entry/" + entry.getEntryName());
+//	}
+
+
+
+
 	@RequestMapping(value = "/entry_editor", method = RequestMethod.POST)
 	@Secured({"ROLE_USER"})
 	public @ResponseBody RedirectView entrySave(@ModelAttribute(value="newEntryForm") NewEntryForm newEntry, Model model) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("hasEntryName",false);
-		
+
+		PageEntry entry=processForm(newEntry);
+
+		pageEntryRepository.save(entry);
+
+
+		return new RedirectView("/entry/" + entry.getEntryName());
+	}
+
+
+	private PageEntry processForm(NewEntryForm newEntry){
 		PageEntry entry = new PageEntry();
 		entry.setEntryName(newEntry.getEntryName());
 		entry.setTitle(newEntry.getTitle());
@@ -76,12 +115,7 @@ public class EntryEditorController {
 		entry.setUpdatedAt(date);
 		entry.setCreatedAt(date);
 		
-		pageEntryRepository.save(entry);
-		
-		
-		return new RedirectView("/entry/" + entry.getEntryName());
+		return entry;
 	}
 
-
-	
 }

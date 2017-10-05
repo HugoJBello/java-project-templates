@@ -4,6 +4,9 @@ create database userbase;
 use userbase;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS cathegories;
+
+
 CREATE  TABLE users (
   userid int(11) NOT NULL AUTO_INCREMENT,
   username VARCHAR(45) NOT NULL,
@@ -30,10 +33,23 @@ CREATE TABLE page_entries (
   updated_by int(11),
   created_by int(11),
   primary key (entry_name),
-  KEY fk_updated_by (updated_by),
-  KEY fk_created_by (created_by),
-  CONSTRAINT fk_updated_by FOREIGN KEY (updated_by) REFERENCES users (userid),
-  CONSTRAINT fk_created_by FOREIGN KEY (created_by) REFERENCES users (userid));
+  KEY fk_updated_by_entries (updated_by),
+  KEY fk_created_by_entries (created_by),
+  CONSTRAINT fk_updated_by_entries FOREIGN KEY (updated_by) REFERENCES users (userid),
+  CONSTRAINT fk_created_by_entries FOREIGN KEY (created_by) REFERENCES users (userid));
+
+  CREATE TABLE cathegories (
+  title text NOT NULL,
+  cathegory_name VARCHAR(500) NOT NULL,
+  description text,
+  updated_at datetime,
+  updated_by int(11),
+  created_by int(11),
+  primary key (cathegory_name),
+  KEY fk_updated_by_cathegories (updated_by),
+  KEY fk_created_by_cathegories (created_by),
+  CONSTRAINT fk_updated_by_cathegories FOREIGN KEY (updated_by) REFERENCES users (userid),
+  CONSTRAINT fk_created_by_cathegories FOREIGN KEY (created_by) REFERENCES users (userid));
 
 INSERT INTO users(username,email,password,enabled)
 VALUES ('hjbello','abc@abc.com','1234', true);

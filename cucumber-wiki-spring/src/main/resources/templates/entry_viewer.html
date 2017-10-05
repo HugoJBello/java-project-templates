@@ -16,9 +16,16 @@
   </script>
   
   <div th:if="${hasEntries}">
+  	<br></br>
   	<div id="content">
   		<span th:text="${textInHtml}"></span>
   	</div>
+  	<script th:inline="javascript">
+			$(function(){
+				var contenthtml = [[${textInHtml}]];
+				$('#content').html(contenthtml);
+			});
+	</script>
   </div>
   
    <div th:if="${hasCathegories}">
@@ -28,9 +35,7 @@
 	   		</p>
 			<script th:inline="javascript">
 			$(function(){
-				var contenthtml = [[${textInHtml}]];
-				$('#content').html(contenthtml);
-				
+				var contenthtml = [[${textInHtml}]];			
 				var catheory=[[${cathegory}]];
 	            $('#'+cathegory).attr('href','/cathegory/' + titleToFilename(catheory));
 	            var data={};

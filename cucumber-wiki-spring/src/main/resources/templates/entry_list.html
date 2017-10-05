@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title></title>
+    <script th:src="@{/js/filename_utils.js}"></script>
+    <div th:include="fragments/layout :: header_head"></div>
+  </head>
+  <body>
+  <div th:include="fragments/layout :: header_body"></div>
+  
+  <div th:if="${hasEntries}">
+  	<div id="content">
+  		
+  		<th:block th:each="entry : ${entries}">
+	   		<p>
+	   			<a id="${entry.entryName}" class="label label-default"><div th:text="${entry.entryName}"></div></a>
+	   		</p>
+					
+	   </th:block>
+  	</div>
+  </div>
+  </body>
+</html>

@@ -17,7 +17,7 @@
 		    <li id="liEdit"><a id="edit" th:href="@{/entry_editor/{name}(name=${entry.entryName})}">
 		        Edit
 		         <span class="glyphicon glyphicon-pencil"></span></a></li>
-		    <li id="liUpload"><a th:href="@{/upload/${entry.entryName}}">
+		    <li id="liUpload"><a th:href="@{/upload/{name}(name=${entryName})}">
 		        Add image
 		         <span class="glyphicon glyphicon-picture"></span></a></li>
 		    <li id="liHistory"><a th:href="@{/entry_history/{name}&amp;page=1(name=${entry.entryName})}">History</a></li>
@@ -33,7 +33,7 @@
 			    <li id="liEdit"><a id="edit" th:href="@{/entry_editor/{name}(name=${entryName})}">
 			        Edit
 			         <span class="glyphicon glyphicon-pencil"></span></a></li>
-			    <li id="liUpload"><a th:href="@{/upload/${entryName}}">
+			    <li id="liUpload"><a th:href="@{/upload/{name}(name=${entryName})}">
 			        Add image
 			         <span class="glyphicon glyphicon-picture"></span></a></li>
 			    <li id="liHistory"><a th:href="@{/entry_history/{name}&amp;page=1(name=${entryName})}">History</a></li>
