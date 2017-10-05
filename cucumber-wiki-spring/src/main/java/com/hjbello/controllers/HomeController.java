@@ -55,5 +55,18 @@ public class HomeController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/layout", method = RequestMethod.GET)
+	public @ResponseBody ModelAndView layout (Model model) {
+		logger.info("Accessing login page");
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("hasEntries",false);
+		mv.addObject("hasCathegories",false);
+		mv.addObject("hasEntryName",false);
+
+		mv.setViewName("layout_editor");
+
+		return mv;
+	}
+	
 	 
 }

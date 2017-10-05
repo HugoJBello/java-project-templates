@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title></title>
+    <script th:src="@{/js/filename_utils.js}"></script>
+    <div th:include="fragments/layout :: header_head"></div>
+  </head>
+  <body>
+  <div th:include="fragments/layout_editor :: header_body_editor"></div>
+  <script type="text/javascript">
+  $(function() {
+      $('#liView').attr('class','active');
+      $('#liEdit').attr('class','');
+      $('#liUpload').attr('class','');
+    });  
+  </script>
+  
+  <div th:if="${hasEntries}">
+  	<div id="content">
+  		<span th:text="${textInHtml}"></span>
+  	</div>
+  </div>
+  
+   <div th:if="${hasCathegories}">
+	   <th:block th:each="cathegory : ${cathegories}">
+	   		<p>
+	   			<a id="${cathegory}" class="label label-default"><div th:text="${cathegory}"></div></a>
+	   		</p>
+			<script th:inline="javascript">
+			$(function(){
+				var contenthtml = [[${textInHtml}]];
+				$('#content').html(contenthtml);
+				
+				var catheory=[[${cathegory}]];
+	            $('#'+cathegory).attr('href','/cathegory/' + titleToFilename(catheory));
+	            var data={};
+	            if (cathegory!=''){    
+	              data.cathegory_name=catheory;
+	              $.ajax({
+	                        type: 'POST',
+	                        url: '/obtain_cathegory_id',
+	                        data: JSON.stringify(data),
+	                        cache: false,
+	                        contentType: "application/json",
+	                        timeout: 50000,
+	                        success: function(data) {
+	                            console.log('success');
+	                            console.log(data);
+	                            $('#'+cathegory).attr('href','/cathegory/cat=' + data.cathegory_id+'\u0026'+'page=1');
+	                          }
+	              });
+	            }
+	          });
+			</script>			
+	   </th:block>
+  
+   </div>
+  </body>
+</html>

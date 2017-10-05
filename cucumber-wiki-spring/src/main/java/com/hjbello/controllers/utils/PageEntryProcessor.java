@@ -14,6 +14,8 @@ public class PageEntryProcessor {
 	public ModelAndView processEntry (ModelAndView mv, PageEntry entry) {
 		if (entry!=null){
 			mv.addObject("hasEntries",true);
+			mv.addObject("hasCathegories",false);
+			mv.addObject("hasEntryName",false);;
 			mv.addObject("entry", entry);
 
 			if (entry.getCathegories()== null || entry.getCathegories().equals("")) {

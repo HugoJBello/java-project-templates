@@ -18,7 +18,7 @@ import com.hjbello.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebMvcSecurity
-@EnableGlobalMethodSecurity(securedEnabled = false)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @ComponentScan(basePackageClasses = CustomUserDetailsService.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

@@ -28,25 +28,25 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 		  }
 	}
 
-	@Bean
-	public InternalResourceViewResolver viewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/jsp/");
-		resolver.setSuffix(".jsp");
-	     resolver.setViewClass(JstlView.class);
-
-		return resolver;
-	}   
+//	@Bean
+//	public InternalResourceViewResolver viewResolver() {
+//		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//		resolver.setPrefix("/WEB-INF/jsp/");
+//		resolver.setSuffix(".jsp");
+//	     resolver.setViewClass(JstlView.class);
+//
+//		return resolver;
+//	}   
 	
-	 @Bean
-	 UrlBasedViewResolver resolver(){
-	     UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-
-	     resolver.setPrefix("/views/");
-	     resolver.setSuffix(".jsp");
-	     resolver.setViewClass(JstlView.class);
-
-	     return resolver;
-	 }
+//	 @Bean
+//	 UrlBasedViewResolver resolver(){
+//	     UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+//
+//	     resolver.setPrefix("/views/");
+//	     resolver.setSuffix(".jsp");
+//	     resolver.setViewClass(JstlView.class);
+//
+//	     return resolver;
+//	 }
 
 }
