@@ -7,6 +7,7 @@ import org.apache.hadoop.mapred.legacyjobhistory_jsp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -36,7 +37,7 @@ public class LastEntriesController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LastEntriesController.class);
 	
-	int EntriesPerPage=5;
+	int entriesPerPage=5;
 		
 	PageEntryProcessor entryProcessor = new PageEntryProcessor();
 	
@@ -44,28 +45,35 @@ public class LastEntriesController {
 	PageEntryRepository pageEntryRepository;
 
 
-	@RequestMapping(value = "/entry_list/sort={sortby}&order={order}&page={page}", method = RequestMethod.GET)
+	@RequestMapping(value = "/entry_list", method = RequestMethod.GET)
 	@Secured({"ROLE_USER"})
-	public @ResponseBody ModelAndView entry(@PathVariable(value="page") String page,@PathVariable(value="sortby") String sortBy,
-											@PathVariable(value="order") String order,Model model) {
+	public @ResponseBody ModelAndView entry(@RequestParam(value="page") String page,@RequestParam(value="sort") String sortBy,
+			@RequestParam(value="order") String order,Model model) {
 		
 		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("page",page);
+		mv.addObject("sortBy",sortBy);
+		mv.addObject("order",order);
+
 		mv.addObject("hasEntries",false);
 		int adjustedPage = Integer.parseInt(page)-1;
-		if(order.equals("1")){
-			Sort sort = new Sort(new Sort.Order(Direction.DESC, sortBy));
-
+		Sort sort;
+		if(order.equals("-1")){
+			sort = new Sort(new Sort.Order(Direction.DESC, sortBy));
+			mv.addObject("orderDescending",true);
 		} else{
-			Sort sort = new Sort(new Sort.Order(Direction.ASC, sortBy));
-
+			sort = new Sort(new Sort.Order(Direction.ASC, sortBy));
 		}
-		Sort sort = new Sort(new Sort.Order(Direction.ASC, sortBy));
-		Pageable pageable = new PageRequest(adjustedPage, 5, sort);
-		List<PageEntry> entries=pageEntryRepository.findAll(pageable).getContent();
 		
-		logger.info("-----------------------");
+		
+ 		Pageable pageable = new PageRequest(adjustedPage, entriesPerPage, sort);
+		PageImpl<PageEntry> result = pageEntryRepository.findAll(pageable);
 
-		logger.info(entries.get(0).getEntryName());
+		List<PageEntry> entries=result.getContent();
+		int pages= result.getTotalPages();
+		
+		mv.addObject("pages",pages);
 		
 		if (entries.size()>0){
 			mv.addObject("hasEntries",true);

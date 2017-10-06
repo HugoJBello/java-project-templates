@@ -7,17 +7,122 @@
   </head>
   <body>
   <div th:include="fragments/layout :: header_body"></div>
-  
+  <br></br>
+  <h1>List of last entries</h1>
+   <br></br>
   <div th:if="${hasEntries}">
-  	<div id="content">
-  		
-  		<th:block th:each="entry : ${entries}">
-	   		<p>
-	   			<a id="${entry.entryName}" class="label label-default"><div th:text="${entry.entryName}"></div></a>
-	   		</p>
+  	
+	   <table class="table table-striped">
+	   	<thead>
+	    	<tr>
+	    	<td>
+	    		<div th:if="${sortBy == 'entryName'}">
+	    		<div th:if="${order == '-1'}">
+	    			<a th:href="@{/entry_list(sort='entryName', order = '1', page='1')}">Title
+	    			<span class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+	    			</a>   	
+		    	</div>
+		    	<div th:if="${order == '1'}">
+		    		<a th:href="@{/entry_list(sort='entryName', order = '-1', page='1')}">Title</a>   
+		    		<span class="glyphicon glyphicon-sort-by-alphabet"></span>	
+	    		</div>
+	    		</div>
+	    		<div th:if="${sortBy != 'entryName'}">
+	    			<a th:href="@{/entry_list(sort='entryName', order = '-1', page='1')}">Title
+	    			<span class="glyphicon glyphicon-sort"></span>
+	    			</a>   	
+	    		</div>
+	    	</td>
+	    	<td>
+	    		<div th:if="${sortBy == 'updatedAt'}">
+	    		<div th:if="${order == '-1'}">
+	    			<a th:href="@{/entry_list(sort='updatedAt', order = '1', page='1')}">Updated at
+	    			<span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+	    			</a>   	
+		    	</div>
+		    	<div th:if="${order == '1'}">
+		    		<a th:href="@{/entry_list(sort='updatedAt', order = '-1', page='1')}">Updated at</a>   
+		    		<span class="glyphicon glyphicon-sort-by-attributes"></span>	
+	    		</div>
+	    		</div>
+	    		<div th:if="${sortBy != 'updatedAt'}">
+	    			<a th:href="@{/entry_list(sort='updatedAt', order = '-1', page='1')}">Updated at
+	    			<span class="glyphicon glyphicon-sort"></span>
+	    			</a>   	
+	    		</div>
+	    	</td>
+	    	<td>
+	    		<div th:if="${sortBy == 'updatedBy'}">
+	    		<div th:if="${order == '-1'}">
+	    			<a th:href="@{/entry_list(sort='updatedBy', order = '1', page='1')}">Updated by
+	    			<span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+	    			</a>   	
+		    	</div>
+		    	<div th:if="${order == '1'}">
+		    		<a th:href="@{/entry_list(sort='updatedBy', order = '-1', page='1')}">Updated by</a>   
+		    		<span class="glyphicon glyphicon-sort-by-attributes"></span>	
+	    		</div>
+	    		</div>
+	    		<div th:if="${sortBy != 'updatedBy'}">
+	    			<a th:href="@{/entry_list(sort='updatedBy', order = '-1', page='1')}">Updated by
+	    			<span class="glyphicon glyphicon-sort"></span>
+	    			</a>   	
+	    		</div>
+	    	</td>
+	    	</tr>
+	   	</thead>
+	   	
+	   	<tbody>
+	   	<th:block th:each="entry : ${entries}">
+	   		<tr>
+	   			<td>
+	   				<a th:id="${entry.entryName}"><div th:text="${entry.entryName}"></div></a>	
+	   				<script th:inline="javascript">
+	   				var name = [[${entry.entryName}]];
+	   				$('#'+name).attr('href','/entry/' + titleToFilename(name));
+	   				console.log(name);
+	   				</script>
+	   			</td>
+	   			<td>
+	   				<a><div th:text="${entry.updatedAt}"></div></a>	
+	   			</td>
+	   			<td>
+	   				<a><div th:text="${entry.updatedBy}"></div></a>	
+	   			</td>
+	   		</tr>
 					
 	   </th:block>
+	   	</tbody>
+	   </table>
+	   
+	   
+	   <nav aria-label='Page navigation example'>
+		   <ul class='pagination' id='list_pages'>
+ 				   <li class='page-item' th:if="${page != '1'}">
+				   		<a class='page-link' id='previous_page' href=''>Previous</a>
+				   </li>
+ 					<li class='page-item' th:each="pageNum : ${#numbers.sequence( 1, __${pages}__)}">
+			   			 <a class='page-link' th:href="@{/entry_list(sort= ${sortBy}, order = ${order}, page=${pageNum})}"><span th:text="${pageNum}"></span>
+			   			 </a>
+			   		</li>
+ 				   <li class='page-item' th:if="${page != pages}">
+				   		<a class='page-link' id='next_page' href=''>Next</a>
+				   </li>
+ 		   </ul>
+	   </nav>
+	   <script th:inline="javascript">
+	   $(function(){
+		   	 var page =parseInt([[${page}]]);
+	         var pages=parseInt([[${pages}]]);
+		   	 var sort =[[${sortBy}]];
+		   	 var order =[[${order}]];
+		   	 console.log(page);
+	         var next_page = page +1;
+	         var previous_page=page-1;
+	         $('#next_page').attr('href',"/entry_list?sort=" + sort + "\u0026" + "order="+ order + "\u0026" + "page="+next_page);
+	         $('#previous_page').attr('href',"/entry_list?sort=" + sort + "\u0026" + "order="+ order + "\u0026" + "page="+previous_page);
+	       });
+	   </script>
   	</div>
-  </div>
   </body>
 </html>
