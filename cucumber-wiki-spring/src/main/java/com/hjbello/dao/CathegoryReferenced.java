@@ -9,8 +9,6 @@ import javax.persistence.*;
 @Table(name = "cathegories_referenced")
 public class CathegoryReferenced implements Serializable {
 
-
-
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "cathegory_name")

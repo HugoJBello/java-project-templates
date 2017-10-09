@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: cucumber-wiki-spring
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: hugo.bello
+Implementation-Vendor-Id: com.wiki
+Build-Jdk: 1.8.0_144
+Implementation-URL: http://projects.spring.io/spring-boot/cucumber-wik
+ i/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

@@ -85,22 +85,6 @@ public class EntryEditorController {
 		return mv;
 	}
 
-	//	@RequestMapping(value = "/entry_editor_new", method = RequestMethod.POST)
-	//	@Secured({"ROLE_USER"})
-	//	public @ResponseBody RedirectView entryEditorNew(@ModelAttribute(value="newEntryForm") NewEntryForm newEntry, Model model) {
-	//		ModelAndView mv = new ModelAndView();
-	//		mv.addObject("hasEntryName",false);
-	//
-	//		PageEntry entry=processForm(newEntry);
-	//
-	//		pageEntryRepository.insert(entry);
-	//
-	//		return new RedirectView("/entry/" + entry.getEntryName());
-	//	}
-
-
-
-
 	@RequestMapping(value = "/entry_editor", method = RequestMethod.POST)
 	@Secured({"ROLE_USER"})
 	public @ResponseBody RedirectView entrySave(@ModelAttribute(value="newEntryForm") NewEntryForm newEntry, Model model) {
