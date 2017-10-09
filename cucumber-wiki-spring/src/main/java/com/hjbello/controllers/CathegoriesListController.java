@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.github.rjeschke.txtmark.Processor;
 import com.hjbello.controllers.utils.PageEntryProcessor;
+import com.hjbello.dao.Cathegory;
+import com.hjbello.dao.CathegoryRepository;
 import com.hjbello.dao.PageEntry;
 import com.hjbello.dao.PageEntryRepository;
 
@@ -42,7 +44,7 @@ public class CathegoriesListController {
 	PageEntryProcessor entryProcessor = new PageEntryProcessor();
 	
 	@Autowired
-	PageEntryRepository pageEntryRepository;
+	CathegoryRepository cathegoryRepository;
 
 
 	@RequestMapping(value = "/cathegories", method = RequestMethod.GET)
@@ -56,7 +58,7 @@ public class CathegoriesListController {
 		mv.addObject("sortBy",sortBy);
 		mv.addObject("order",order);
 
-		mv.addObject("hasEntries",false);
+		mv.addObject("hasCathegories",false);
 		int adjustedPage = Integer.parseInt(page)-1;
 		Sort sort;
 		if(order.equals("-1")){
@@ -68,20 +70,20 @@ public class CathegoriesListController {
 		
 		
  		Pageable pageable = new PageRequest(adjustedPage, entriesPerPage, sort);
-		PageImpl<PageEntry> result = pageEntryRepository.findAll(pageable);
+		PageImpl<Cathegory> result = cathegoryRepository.findAll(pageable);
 
-		List<PageEntry> entries=result.getContent();
+		List<Cathegory> cathegories=result.getContent();
 		int pages= result.getTotalPages();
 		
 		mv.addObject("pages",pages);
 		
-		if (entries.size()>0){
-			mv.addObject("hasEntries",true);
+		if (cathegories.size()>0){
+			mv.addObject("hasCathegories",true);
 
-			mv.addObject("entries",entries);
+			mv.addObject("cathegories",cathegories);
 
 		}
-		mv.setViewName("entry_list");
+		mv.setViewName("cathegories_list");
 		return mv;
 	}
 
