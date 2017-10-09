@@ -8,7 +8,7 @@
   <body>
   <div th:include="fragments/layout :: header_body"></div>
   <br></br>
-  <h1>List of last entries</h1>
+  <h1>Cathegories</h1>
    <br></br>
   <div th:if="${hasCathegories}">
   	
@@ -28,7 +28,7 @@
 	    		</div>
 	    		</div>
 	    		<div th:if="${sortBy != 'cathegoryName'}">
-	    			<a th:href="@{/cathegories(sort='cathegoryName', order = '-1', page='1')}">Title
+	    			<a th:href="@{/cathegories(sort='cathegoryName', order = '-1', page='1')}">Cathegory
 	    			<span class="glyphicon glyphicon-sort"></span>
 	    			</a>   	
 	    		</div>
@@ -76,9 +76,9 @@
 	   	<th:block th:each="entry : ${cathegories}">
 	   		<tr>
 	   			<td>
-	   				<a th:id="${entry.cathegoryName}"><div th:text="${entry.cathegoryName}"></div></a>	
+	   				<a th:id="${entry.cathegoryName}"><div th:text="${entry.cathegoryName}" class="label label-default"></div></a>	
 	   				<script th:inline="javascript">
-	   				var name = [[${cathegory.cathegoryName}]];
+	   				var name = [[${entry.cathegoryName}]];
 	   				$('#'+name).attr('href','/cathegory/' + titleToFilename(name));
 	   				console.log(name);
 	   				</script>
